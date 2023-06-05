@@ -19,24 +19,14 @@ class UserRoleLayout extends Rows
      */
     public function fields(): array
     {
-        if(Auth::user()->inRole('doctor')){
-            return [
-                Select::make('user.roles')
-                    ->options([
-                        3  => 'Paciente',
-                    ])
-                    ->title(__('Name role'))
-                    ->help('Specify which groups this account should belong to'),
-            ];
-        } else {
-            return [
-                Select::make('user.roles.')
-                    ->fromModel(Role::class, 'name')
-                    ->multiple()
-                    ->title(__('Name role'))
-                    ->help('Specify which groups this account should belong to'),
-            ];
-        }
-        
+        return [
+
+            Select::make('user.roles')
+            ->fromModel(Role::class, 'name')
+            ->empty('Patient')
+            ->title(__('Name role'))
+            ->help('Specify which groups this account should belong to'),
+            
+        ];
     }
 }

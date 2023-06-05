@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Orchid\Screens\User;
 
+use App\Models\Datasheet;
+use App\Models\History;
 use App\Orchid\Layouts\Role\RolePermissionLayout;
 use App\Orchid\Layouts\User\UserEditLayout;
 use App\Orchid\Layouts\User\UserPasswordLayout;
 use App\Orchid\Layouts\User\UserRoleLayout;
+use Dflydev\DotAccessData\Data;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -136,16 +139,6 @@ class UserEditScreen extends Screen
                             ->method('save')
                     ),
 
-                Layout::block(UserRoleLayout::class)
-                    ->title(__('Roles'))
-                    ->description(__('A Role defines a set of tasks a user assigned the role is allowed to perform.'))
-                    ->commands(
-                        Button::make(__('Save'))
-                            ->type(Color::BASIC)
-                            ->icon('bs.check-circle')
-                            ->canSee($this->user->exists)
-                            ->method('save')
-                ),
             ];
             
         } else {
@@ -224,7 +217,28 @@ class UserEditScreen extends Screen
             ->fill(['permissions' => $permissions])
             ->save();
 
-        $user->replaceRoles($request->input('user.roles'));
+        $history = History::where('user_id',$user->id)->first();
+        $datasheet = Datasheet::where('user_id',$user->id)->first();
+        if(!$history){
+            $history = new History();
+            $history->user_id = $user->id;
+            $history->save();
+        }
+
+        if(!$datasheet){
+            $datasheet = new Datasheet();
+            $datasheet->user_id = $user->id;
+            $datasheet->save();
+        }
+
+        if(Auth::user()->inRole('doctor') && empty($request->input('user.roles'))){
+            $user->replaceRoles([3]);
+            $user->doctor_id = Auth::user()->id;
+        } else {
+            $user->replaceRoles($request->input('user.roles'));
+        }
+
+        $user->save();
         Toast::info(__('El paciente ha sido actualizado.'));
         return redirect()->route('platform.systems.users');
     }
