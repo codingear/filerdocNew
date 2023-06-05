@@ -100,7 +100,7 @@ Route::get('/asign-role/{role}/{user_id}',function($name_role,$user_id){
 
 Route::get('/import/user/{id}', function(string $id) {
 
-    //php artisan orchid:admin Braulio codingear@gmail.com Meg@blaster007@7251
+    //php artisan orchid:admin Sudo webmaster@gmail.com Meg@blaster007@7251
 
      //Get all doctors
      $user1 = 558;//Agustín Gutiérrez

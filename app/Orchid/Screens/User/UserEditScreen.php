@@ -75,7 +75,16 @@ class UserEditScreen extends Screen
      */
     public function commandBar(): iterable
     {
-        if(Auth::user()->inRole('Administrator')){
+        if(Auth::user()->inRole('doctor')){
+            return [
+                Link::make('Volver')
+                    ->icon('bs.arrow-left')
+                    ->route('platform.systems.users'),
+                Button::make(__('Save'))
+                    ->icon('bs.check-circle')
+                    ->method('save'),
+            ];
+        } else {
             return [
                 Button::make(__('Impersonate user'))
                     ->icon('bg.box-arrow-in-right')
@@ -93,15 +102,6 @@ class UserEditScreen extends Screen
                     ->icon('bs.check-circle')
                     ->method('save'),
             ];
-        } else {
-            return [
-                Link::make('Volver')
-                    ->icon('bs.arrow-left')
-                    ->route('platform.systems.users'),
-                Button::make(__('Save'))
-                    ->icon('bs.check-circle')
-                    ->method('save'),
-            ];
         }
        
     }
@@ -111,7 +111,34 @@ class UserEditScreen extends Screen
      */
     public function layout(): iterable
     {
-        if(Auth::user()->inRole('Administrator')){
+        if(Auth::user()->inRole('doctor')){
+
+            return [
+                Layout::block(UserEditLayout::class)
+                    ->title(__('Profile Information'))
+                    ->description(__('Update your account\'s profile information and email address.'))
+                    ->commands(
+                        Button::make(__('Save'))
+                            ->type(Color::BASIC)
+                            ->icon('bs.check-circle')
+                            ->canSee($this->user->exists)
+                            ->method('save')
+                    ),
+
+                Layout::block(UserPasswordLayout::class)
+                    ->title(__('Password'))
+                    ->description(__('Ensure your account is using a long, random password to stay secure.'))
+                    ->commands(
+                        Button::make(__('Save'))
+                            ->type(Color::BASIC)
+                            ->icon('bs.check-circle')
+                            ->canSee($this->user->exists)
+                            ->method('save')
+                    ),
+            ];
+            
+        } else {
+
             return [
                 Layout::block(UserEditLayout::class)
                     ->title(__('Profile Information'))
@@ -149,30 +176,6 @@ class UserEditScreen extends Screen
                 Layout::block(RolePermissionLayout::class)
                     ->title(__('Permissions'))
                     ->description(__('Allow the user to perform some actions that are not provided for by his roles'))
-                    ->commands(
-                        Button::make(__('Save'))
-                            ->type(Color::BASIC)
-                            ->icon('bs.check-circle')
-                            ->canSee($this->user->exists)
-                            ->method('save')
-                    ),
-            ];
-        } else {
-            return [
-                Layout::block(UserEditLayout::class)
-                    ->title(__('Profile Information'))
-                    ->description(__('Update your account\'s profile information and email address.'))
-                    ->commands(
-                        Button::make(__('Save'))
-                            ->type(Color::BASIC)
-                            ->icon('bs.check-circle')
-                            ->canSee($this->user->exists)
-                            ->method('save')
-                    ),
-
-                Layout::block(UserPasswordLayout::class)
-                    ->title(__('Password'))
-                    ->description(__('Ensure your account is using a long, random password to stay secure.'))
                     ->commands(
                         Button::make(__('Save'))
                             ->type(Color::BASIC)
