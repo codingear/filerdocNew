@@ -21,7 +21,7 @@ class PlatformScreen extends Screen
     public $user;    
     public function query(): iterable
     {
-        $user = User::select('id')->get();
+        $patients = Auth::user()->patients;
 
         //Carbon
         $now = Carbon::now();
@@ -31,15 +31,15 @@ class PlatformScreen extends Screen
         $monthEndDate = $now->endOfMonth()->format('Y-m-d H:i');
         $yearStartDate = $now->startOfYear()->format('Y-m-d H:i');
         $yearEndDate = $now->endOfYear()->format('Y-m-d H:i');
-        $week = Inquiry::whereBetween('created_at', [$weekStartDate, $weekEndDate])->get();
-        $month = Inquiry::whereBetween('created_at', [$monthStartDate, $monthEndDate])->get();
-        $year = Inquiry::whereBetween('created_at', [$yearStartDate, $yearEndDate])->get();
-        $last_patient = Inquiry::latest()->with('user')->first();
+        $week = Inquiry::where('user_id',Auth::user()->id)->whereBetween('created_at', [$weekStartDate, $weekEndDate])->get();
+        $month = Inquiry::where('user_id',Auth::user()->id)->whereBetween('created_at', [$monthStartDate, $monthEndDate])->get();
+        $year = Inquiry::where('user_id',Auth::user()->id)->whereBetween('created_at', [$yearStartDate, $yearEndDate])->get();
+        $last_patient = Inquiry::where('user_id',Auth::user()->id)->latest()->with('user')->first();
 
         return [
             'user' => Auth::user(),
             'metrics' => [
-                'users' => @$user->count(),
+                'patients' => @$patients->count(),
                 'week' => @$week->count(),
                 'month' => @$month->count(),
                 'last_patient' => @$last_patient->user->FullName,
@@ -83,7 +83,7 @@ class PlatformScreen extends Screen
         return [
             Layout::metrics([
                 'Último paciente'    => 'metrics.last_patient',
-                'Pacientes totales'    => 'metrics.users',
+                'Pacientes totales'    => 'metrics.patients',
                 'Citas esta semana'    => 'metrics.week',
                 'Citas este mes'    => 'metrics.month',
             ]),
