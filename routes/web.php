@@ -146,7 +146,7 @@ Route::get('/import/user/{id}', function(string $id) {
 
             $pacientes = Identificacion::where('medico',$doctor->id)->get();
 
-            //Insertar citas
+            //Insertar consulta
             foreach($pacientes as $paciente){
 
                 $random = Str::random(10);

@@ -56,7 +56,7 @@ class UserListLayout extends Table
                     ->icon('bs.three-dots-vertical')
                     ->list([
 
-                        Link::make(__('Todas las citas'))
+                        Link::make(__('Todas las consultas'))
                             ->route('platform.inquiry.user', $user->id)
                             ->icon('bs.inboxes'),
 

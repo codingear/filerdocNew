@@ -84,8 +84,8 @@ class PlatformScreen extends Screen
             Layout::metrics([
                 'Último paciente'    => 'metrics.last_patient',
                 'Pacientes totales'    => 'metrics.patients',
-                'Citas esta semana'    => 'metrics.week',
-                'Citas este mes'    => 'metrics.month',
+                'Consultas esta semana'    => 'metrics.week',
+                'Consultas este mes'    => 'metrics.month',
             ]),
         ];
     }

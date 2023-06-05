@@ -38,7 +38,7 @@ class PlatformProvider extends OrchidServiceProvider
                 ->icon('bs.people')
                 ->route('platform.systems.users')
                 ->permission('platform.systems.users')
-                ->title(__('Pacientes y citas')),
+                ->title(__('Pacientes y consultas')),
 
             /*Menu::make('Consultas')
                 ->icon('bag')

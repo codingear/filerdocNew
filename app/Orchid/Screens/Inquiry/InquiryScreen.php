@@ -26,7 +26,7 @@ class InquiryScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Citas';
+        return 'Consultas';
     }
     
     /**
@@ -34,7 +34,7 @@ class InquiryScreen extends Screen
      */
     public function description(): ?string
     {
-        return "Gestiona tus citas";
+        return "Gestiona tus consultas";
     }
 
     /**
@@ -45,7 +45,7 @@ class InquiryScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            ModalToggle::make('Añadir cita')
+            ModalToggle::make('Añadir consulta')
                 ->modal('inquiryModal')
                 ->method('create')
                 ->icon('plus'),
