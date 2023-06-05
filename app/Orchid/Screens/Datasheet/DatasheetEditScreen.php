@@ -34,10 +34,10 @@ class DatasheetEditScreen extends Screen
         return [
             'datasheet' => $datasheet,
             'metrics' => [
-                'age' => $datasheet->age,
-                'id_patient' => $datasheet->patient_id,
-                'state' => $datasheet->state->name,
-                'socioeconomic' => $datasheet->socioeconomic
+                'age' => @$datasheet->age,
+                'id_patient' => @$datasheet->patient_id,
+                'state' => @$datasheet->state->name,
+                'socioeconomic' => @$datasheet->socioeconomic
             ],
         ];
     }

@@ -7,5 +7,5 @@
 @endpush
 
 <p class="h2 n-m font-thin v-center">
-    <img src="{{asset('img/logo.png')}}" style="width:80%;display:block;margin:0 auto;">
+    <img src="{{asset('img/logo.png')}}" style="width:180px;display:block;margin:0 auto;">
 </p>

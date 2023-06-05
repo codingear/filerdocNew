@@ -6,6 +6,10 @@ namespace App\Orchid\Screens;
 
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\Inquiry;
+use Carbon\Carbon;
 
 class PlatformScreen extends Screen
 {
@@ -14,9 +18,33 @@ class PlatformScreen extends Screen
      *
      * @return array
      */
+    public $user;    
     public function query(): iterable
     {
-        return [];
+        $user = User::select('id')->get();
+
+        //Carbon
+        $now = Carbon::now();
+        $weekStartDate = $now->startOfWeek()->format('Y-m-d H:i');
+        $weekEndDate = $now->endOfWeek()->format('Y-m-d H:i');
+        $monthStartDate = $now->startOfMonth()->format('Y-m-d H:i');
+        $monthEndDate = $now->endOfMonth()->format('Y-m-d H:i');
+        $yearStartDate = $now->startOfYear()->format('Y-m-d H:i');
+        $yearEndDate = $now->endOfYear()->format('Y-m-d H:i');
+        $week = Inquiry::whereBetween('created_at', [$weekStartDate, $weekEndDate])->get();
+        $month = Inquiry::whereBetween('created_at', [$monthStartDate, $monthEndDate])->get();
+        $year = Inquiry::whereBetween('created_at', [$yearStartDate, $yearEndDate])->get();
+        $last_patient = Inquiry::latest()->with('user')->first();
+
+        return [
+            'user' => Auth::user(),
+            'metrics' => [
+                'users' => $user->count(),
+                'week' => $week->count(),
+                'month' => $month->count(),
+                'last_patient' => $last_patient->user->FullName,
+            ],
+        ];
     }
 
     /**
@@ -24,7 +52,7 @@ class PlatformScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Get Started';
+        return 'Bienvenido '.$this->user->FullName;
     }
 
     /**
@@ -32,7 +60,7 @@ class PlatformScreen extends Screen
      */
     public function description(): ?string
     {
-        return 'Welcome to your Orchid application.';
+        return 'Gracias por preferir FilerDoc';
     }
 
     /**
@@ -53,8 +81,12 @@ class PlatformScreen extends Screen
     public function layout(): iterable
     {
         return [
-            Layout::view('platform::partials.update-assets'),
-            Layout::view('platform::partials.welcome'),
+            Layout::metrics([
+                'Último paciente'    => 'metrics.last_patient',
+                'Pacientes totales'    => 'metrics.users',
+                'Citas esta semana'    => 'metrics.week',
+                'Citas este mes'    => 'metrics.month',
+            ]),
         ];
     }
 }

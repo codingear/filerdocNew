@@ -33,11 +33,6 @@ class UserListLayout extends Table
                 ->filter(Input::make())
                 ->render(fn (User $user) => new Persona($user->presenter())),
 
-            /*TD::make('patient_id', __('ID del paciente'))
-                ->sort()
-                ->filter(Input::make())
-                ->render(fn (User $user) => @$user->datasheet->patient_id),*/
-
             TD::make('email', __('Email'))
                 ->sort()
                 ->cantHide()
@@ -66,11 +61,11 @@ class UserListLayout extends Table
                             ->icon('bs.inboxes'),
 
                         Link::make(__('Historial clínico'))
-                            ->route('platform.historical.edit', $user->id)
+                            ->route('platform.historical.edit', $user->history->id)
                             ->icon('bs.list'),
 
                         Link::make(__('Ficha técnica'))
-                            ->route('platform.datasheet.edit', $user->id)
+                            ->route('platform.datasheet.edit', $user->datasheet->id)
                             ->icon('bs.person'),
 
                         Link::make(__('Editar usuario'))

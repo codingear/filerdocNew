@@ -38,6 +38,10 @@ Route::get('/', function () {
     return redirect('/admin');
 });
 
+Route::get('/main', function () {
+    return redirect('/admin/users');
+});
+
 Route::get('/add-roles', function () {
 
     /**
