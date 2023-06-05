@@ -135,6 +135,17 @@ class UserEditScreen extends Screen
                             ->canSee($this->user->exists)
                             ->method('save')
                     ),
+
+                Layout::block(UserRoleLayout::class)
+                    ->title(__('Roles'))
+                    ->description(__('A Role defines a set of tasks a user assigned the role is allowed to perform.'))
+                    ->commands(
+                        Button::make(__('Save'))
+                            ->type(Color::BASIC)
+                            ->icon('bs.check-circle')
+                            ->canSee($this->user->exists)
+                            ->method('save')
+                ),
             ];
             
         } else {
@@ -214,9 +225,7 @@ class UserEditScreen extends Screen
             ->save();
 
         $user->replaceRoles($request->input('user.roles'));
-
         Toast::info(__('El paciente ha sido actualizado.'));
-
         return redirect()->route('platform.systems.users');
     }
 
