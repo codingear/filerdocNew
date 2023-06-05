@@ -43,6 +43,6 @@ class Datasheet extends Model
 
     public function getAgeAttribute(){
         $date = Carbon::parse($this->birthdate);
-        return Carbon::createFromDate($date)->diff(Carbon::now())->format('%y Años, %m meses');
+        return Carbon::createFromDate($date)->diff(Carbon::now())->format('%y Años, %m meses %d días');
     }
 }
