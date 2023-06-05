@@ -33,10 +33,10 @@ class UserListLayout extends Table
                 ->filter(Input::make())
                 ->render(fn (User $user) => new Persona($user->presenter())),
 
-            TD::make('patient_id', __('ID del paciente'))
+            /*TD::make('patient_id', __('ID del paciente'))
                 ->sort()
                 ->filter(Input::make())
-                ->render(fn (User $user) => @$user->datasheet->patient_id),
+                ->render(fn (User $user) => @$user->datasheet->patient_id),*/
 
             TD::make('email', __('Email'))
                 ->sort()

@@ -21,7 +21,7 @@ class PatientFilter extends Filter
      */
     public function parameters(): ?array
     {
-        return ['name'];
+        return ['name','email','PatientId'];
     }
 
     /**
@@ -33,7 +33,9 @@ class PatientFilter extends Filter
      */
     public function run(Builder $builder): Builder
     {
-        return $builder->where('name', $this->request->get('name'));
+        $builder->where('name','like','%'.$this->request->get('name').'%');
+        $builder->orWhere('email','like','%'.$this->request->get('name').'%');
+        return $builder;
     }
 
     /**

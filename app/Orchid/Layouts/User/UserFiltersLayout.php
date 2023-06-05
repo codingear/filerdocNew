@@ -15,7 +15,7 @@ class UserFiltersLayout extends Selection
     public function filters(): array
     {
         return [
-            RoleFilter::class,
+            //RoleFilter::class,
             PatientFilter::class
         ];
     }

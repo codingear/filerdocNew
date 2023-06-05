@@ -76,6 +76,10 @@ class User extends Authenticatable
         return $this->name.' '.$this->last_name.' '.$this->mother_last_name;
     }
 
+    public function getPatientIdAttribute(){
+        return $this->datasheet()->patient_id;
+    }
+
     public function patients(){
         return $this->hasMany(Users::class,'doctor_id','id');
     }
