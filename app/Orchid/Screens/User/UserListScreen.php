@@ -28,17 +28,17 @@ class UserListScreen extends Screen
     {
          //Check if admin
          if (Auth::user()->inRole('administrator')) {
-            $users = User::with(['roles'])
+            $users = User::with(['roles','history','datasheet'])
             ->filters(UserFiltersLayout::class)
             ->defaultSort('id', 'desc')
             ->paginate();
         } elseif(Auth::user()->inRole('doctor')) {
-            $users = User::where('doctor_id',Auth::user()->id)->with(['roles'])
+            $users = User::where('doctor_id',Auth::user()->id)->with(['roles','history','datasheet'])
             ->filters(UserFiltersLayout::class)
             ->defaultSort('id', 'desc')
             ->paginate();
         } else {
-            $users = User::with(['roles'])
+            $users = User::with(['roles','history','datasheet'])
             ->filters(UserFiltersLayout::class)
             ->defaultSort('id', 'desc')
             ->paginate();
