@@ -39,10 +39,10 @@ class PlatformScreen extends Screen
         return [
             'user' => Auth::user(),
             'metrics' => [
-                'users' => $user->count(),
-                'week' => $week->count(),
-                'month' => $month->count(),
-                'last_patient' => $last_patient->user->FullName,
+                'users' => @$user->count(),
+                'week' => @$week->count(),
+                'month' => @$month->count(),
+                'last_patient' => @$last_patient->user->FullName,
             ],
         ];
     }
