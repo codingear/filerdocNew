@@ -73,7 +73,7 @@ class UserEditScreen extends Screen
      */
     public function commandBar(): iterable
     {
-        if(Auth::user()->inRole('doctor')){
+        if(Auth::user()->inRole('doctor') && $this->user->exists){
             return [
                 Link::make('Volver')
                     ->icon('bs.arrow-left')
@@ -90,6 +90,16 @@ class UserEditScreen extends Screen
                 Link::make('Ficha técnica')
                     ->icon('bs.person')
                     ->route('platform.datasheet.edit',$this->user->datasheet->id),
+
+                Button::make(__('Save'))
+                    ->icon('bs.check-circle')
+                    ->method('save'),
+            ];
+        } elseif(Auth::user()->inRole('doctor') && !$this->user->exists) {
+            return [
+                Link::make('Volver')
+                    ->icon('bs.arrow-left')
+                    ->route('platform.systems.users'),
 
                 Button::make(__('Save'))
                     ->icon('bs.check-circle')

@@ -60,7 +60,7 @@ class InquiryEditScreen extends Screen
             ->icon('bs.arrow-left')
             ->route('platform.inquiry.user',$this->inquiry->user->id),
 
-            Button::make('Crear cita')
+            Button::make('Crear consulta')
                 ->icon('pencil')
                 ->method('createOrUpdate')
                 ->canSee(!$this->inquiry->exists),
