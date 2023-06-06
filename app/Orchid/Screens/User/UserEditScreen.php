@@ -6,6 +6,7 @@ namespace App\Orchid\Screens\User;
 
 use App\Models\Datasheet;
 use App\Models\History;
+use App\Models\User as Users;
 use App\Orchid\Layouts\Role\RolePermissionLayout;
 use App\Orchid\Layouts\User\UserEditLayout;
 use App\Orchid\Layouts\User\UserPasswordLayout;
@@ -34,9 +35,9 @@ class UserEditScreen extends Screen
      *
      * @return array
      */
-    public function query(User $user): iterable
+    public function query(Users $user): iterable
     {
-        $user->load(['roles']);
+        $user->load(['roles','datasheet','history']);
         return [
             'user'       => $user,
             'permission' => $user->getStatusPermission(),
