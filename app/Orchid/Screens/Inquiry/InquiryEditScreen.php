@@ -37,7 +37,7 @@ class InquiryEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return $this->inquiry->exists ? $this->inquiry->user->FullName.' : '.$this->inquiry->created_at->format('d-m-Y') : 'Nueva consulta';
+        return $this->inquiry->user->FullName.' - '.$this->inquiry->created_at->format('d-m-Y');
     }
 
     /**
@@ -45,7 +45,7 @@ class InquiryEditScreen extends Screen
      */
     public function description(): ?string
     {
-        return $this->inquiry->exists ? 'Editar la consulta' : 'Añadir una consulta nueva';
+        return 'Editar la consulta';
     }
 
     /**
@@ -58,27 +58,22 @@ class InquiryEditScreen extends Screen
         return [
             Link::make('Volver')
                 ->icon('bs.arrow-left')
-                ->route('platform.systems.users')
-                ->canSee(!$this->inquiry->exists),
-
-            Link::make('Volver')
-                ->icon('bs.arrow-left')
                 ->route('platform.inquiry.user',$this->inquiry->user->id)
                 ->canSee($this->inquiry->exists),
 
             Button::make('Nueva consulta')
                 ->icon('pencil')
-                ->method('createOrUpdate')
-                ->canSee(!$this->inquiry->exists),
+                ->method('Create')
+                ->canSee($this->inquiry->exists),
 
             Button::make('Actualizar')
                 ->icon('note')
-                ->method('createOrUpdate')
+                ->method('Update')
                 ->canSee($this->inquiry->exists),
 
             Button::make('Eliminar')
                 ->icon('trash')
-                ->method('remove')
+                ->method('Remove')
                 ->canSee($this->inquiry->exists),
         ];
     }
@@ -235,11 +230,11 @@ class InquiryEditScreen extends Screen
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function createOrUpdate(Inquiry $inquiry, Request $request)
+    public function Update(Inquiry $inquiry, Request $request)
     {
         $inquiry->fill($request->get('inquiry'))->save();
-        Alert::info('Se ha creado correctamente la cita.');
-        return redirect()->route('platform.inquiry.list');
+        Alert::success('Se ha actualizado correctamente la consulta.');
+        return redirect()->route('platform.inquiry.edit',$inquiry->id);
     }
 
     /**
@@ -248,10 +243,14 @@ class InquiryEditScreen extends Screen
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function remove(Inquiry $inquiry)
+    public function Remove(Inquiry $inquiry)
     {
         $inquiry->delete();
         Alert::info('Se ha eliminado correctamente la cita.');
         return redirect()->route('platform.inquiry.list');
+    }
+
+    public function Create(Inquiry $inquiry){
+        return redirect()->route('platform.inquiry.create',$inquiry->user->id);
     }
 }

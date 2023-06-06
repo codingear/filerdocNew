@@ -51,7 +51,7 @@ class InquiryListScreen extends Screen
         return [
             Link::make('Nueva consulta')
                 ->icon('pencil')
-                ->route('platform.inquiry.edit')
+                ->route('platform.inquiry.create')
         ];
     }
 

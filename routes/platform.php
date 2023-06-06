@@ -89,7 +89,7 @@ Route::screen('roles', RoleListScreen::class)
 Route::screen('inquiries', InquiryListScreen::class)
     ->name('platform.inquiry.list');
 
-Route::screen('inquiry/edit/{inquiry?}', InquiryEditScreen::class)
+Route::screen('inquiry/edit/{inquiry}', InquiryEditScreen::class)
     ->name('platform.inquiry.edit');
 
 Route::screen('inquiry/create/{user_id?}', InquiryCreateScreen::class)
