@@ -15,19 +15,27 @@ use Orchid\Screen\Actions\Link;
 use Orchid\Support\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
 
-class InquiryEditScreen extends Screen
+class InquiryCreateScreen extends Screen
 {
-    public $inquiry;
+    public $user;
     /**
      * Fetch data to be displayed on the screen.
      *
      * @return array
      */
-    public function query(Inquiry $inquiry): iterable
+    public function query($user_id = null): iterable
     {
-        return [
-            'inquiry' => $inquiry
-        ];
+        if(!is_null($user_id)){
+            $user = User::where('id',$user_id)->first();
+            return [
+                'user' => $user
+            ];
+        } else {
+            return [
+                'user' => null
+            ];
+        }
+        
     }
 
     /**
@@ -37,7 +45,7 @@ class InquiryEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return $this->inquiry->exists ? $this->inquiry->user->FullName.' : '.$this->inquiry->created_at->format('d-m-Y') : 'Nueva consulta';
+        return 'Nueva consulta';
     }
 
     /**
@@ -45,7 +53,7 @@ class InquiryEditScreen extends Screen
      */
     public function description(): ?string
     {
-        return $this->inquiry->exists ? 'Editar la consulta' : 'Añadir una consulta nueva';
+        return 'Añadir una consulta nueva';
     }
 
     /**
@@ -58,28 +66,11 @@ class InquiryEditScreen extends Screen
         return [
             Link::make('Volver')
                 ->icon('bs.arrow-left')
-                ->route('platform.systems.users')
-                ->canSee(!$this->inquiry->exists),
+                ->route('platform.systems.users'),
 
-            Link::make('Volver')
-                ->icon('bs.arrow-left')
-                ->route('platform.inquiry.user',$this->inquiry->user->id)
-                ->canSee($this->inquiry->exists),
-
-            Button::make('Nueva consulta')
-                ->icon('pencil')
-                ->method('createOrUpdate')
-                ->canSee(!$this->inquiry->exists),
-
-            Button::make('Actualizar')
+            Button::make('Crear consulta')
                 ->icon('note')
-                ->method('createOrUpdate')
-                ->canSee($this->inquiry->exists),
-
-            Button::make('Eliminar')
-                ->icon('trash')
-                ->method('remove')
-                ->canSee($this->inquiry->exists),
+                ->method('create')
         ];
     }
 
@@ -97,6 +88,7 @@ class InquiryEditScreen extends Screen
                     Relation::make('inquiry.user_id')
                         ->fromModel(User::class, 'name','id')
                         ->displayAppend('Fullname')
+                        ->value(@$this->user->id)
                         ->title('Selecciona el paciente:'),
 
                     Input::make('inquiry.weight')
@@ -235,23 +227,10 @@ class InquiryEditScreen extends Screen
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function createOrUpdate(Inquiry $inquiry, Request $request)
+    public function create(Inquiry $inquiry, Request $request)
     {
         $inquiry->fill($request->get('inquiry'))->save();
-        Alert::info('Se ha creado correctamente la cita.');
-        return redirect()->route('platform.inquiry.list');
-    }
-
-    /**
-     * @param Inquiry $post
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
-    public function remove(Inquiry $inquiry)
-    {
-        $inquiry->delete();
-        Alert::info('Se ha eliminado correctamente la cita.');
-        return redirect()->route('platform.inquiry.list');
+        Alert::info('Se ha creado correctamente la consulta.');
+        return redirect()->route('platform.inquiry.edit',$inquiry->id);
     }
 }

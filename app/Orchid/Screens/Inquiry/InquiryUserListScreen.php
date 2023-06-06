@@ -8,6 +8,7 @@ use Orchid\Screen\Screen;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Actions\Button;
 use App\Orchid\Layouts\Inquiry\InquiryUserListLayout;
+use Orchid\Support\Facades\Layout;
 
 class InquiryUserListScreen extends Screen
 {
@@ -20,9 +21,16 @@ class InquiryUserListScreen extends Screen
 
     public function query(User $user): iterable
     {
+        $user->load(['roles','datasheet','history']);
         $this->user = $user;
         return [
-            'inquiries' => $user->inquiries
+            'inquiries' => $user->inquiries,
+            'metrics' => [
+                'age' => @$user->datasheet->age,
+                'id_patient' => @$user->datasheet->patient_id,
+                'state' => @$user->datasheet->state->name,
+                'socioeconomic' => @$user->datasheet->socioeconomic
+            ],
         ];
     }
 
@@ -56,9 +64,9 @@ class InquiryUserListScreen extends Screen
                 ->icon('bs.arrow-left')
                 ->route('platform.systems.users.edit',$this->user->id),
 
-            Link::make('Crear consulta')
+            Link::make('Nueva consulta')
                 ->icon('pencil')
-                ->route('platform.inquiry.edit')
+                ->route('platform.inquiry.create',$this->user->id)
         ];
     }
 
@@ -70,6 +78,13 @@ class InquiryUserListScreen extends Screen
     public function layout(): iterable
     {
         return [
+            Layout::metrics([
+                'Edad'    => 'metrics.age',
+                'ID de paciente' => 'metrics.id_patient',
+                'Estado' => 'metrics.state',
+                'Situación económica' => 'metrics.socioeconomic'
+            ]),
+
             InquiryUserListLayout::class
         ];
     }

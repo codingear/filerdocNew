@@ -30,16 +30,21 @@ class InquiryUserListLayout extends Table
     {
         return [
 
-            TD::make('diagnosis', __('Diagnóstico'))
+            TD::make('name', __('Nombre'))
                 ->sort()
-                ->render(fn (Inquiry $inquiry) => ($inquiry->diagnosis)? $inquiry->diagnosis : '-'),
+                ->render(fn (Inquiry $inquiry) => $inquiry->user->FullName),
 
-            TD::make('medications', __('Medicamentos'))
+            TD::make('size', __('Tamaño'))
                 ->sort()
-                ->render(fn (Inquiry $inquiry) => ($inquiry->medications)? $inquiry->medications : '-'),
+                ->render(fn (Inquiry $inquiry) => ($inquiry->size)? $inquiry->size.' cm':'-'),
+
+            TD::make('temperature', __('Temperatura'))
+                ->sort()
+                ->render(fn (Inquiry $inquiry) => ($inquiry->temperature)? $inquiry->temperature.' °C':'-'),
+
             TD::make('weight', __('Peso'))
                 ->sort()
-                ->render(fn (Inquiry $inquiry) => $inquiry->weight.' Kg.'),
+                ->render(fn (Inquiry $inquiry) => ($inquiry->weight)?$inquiry->weight.' Kg':'-'),
 
             TD::make('created_at', __('Fecha'))
                 ->sort()

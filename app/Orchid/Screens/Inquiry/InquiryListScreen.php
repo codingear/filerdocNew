@@ -49,7 +49,7 @@ class InquiryListScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Link::make('Crear consulta')
+            Link::make('Nueva consulta')
                 ->icon('pencil')
                 ->route('platform.inquiry.edit')
         ];

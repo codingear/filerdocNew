@@ -14,6 +14,7 @@ use Tabuna\Breadcrumbs\Trail;
 
 //Inquiry
 use App\Orchid\Screens\Inquiry\InquiryEditScreen;
+use App\Orchid\Screens\Inquiry\InquiryCreateScreen;
 use App\Orchid\Screens\Inquiry\InquiryListScreen;
 use App\Orchid\Screens\Inquiry\InquiryUserListScreen;
 use App\Orchid\Screens\Historical\HistoricalEditScreen;
@@ -90,6 +91,9 @@ Route::screen('inquiries', InquiryListScreen::class)
 
 Route::screen('inquiry/edit/{inquiry?}', InquiryEditScreen::class)
     ->name('platform.inquiry.edit');
+
+Route::screen('inquiry/create/{user_id?}', InquiryCreateScreen::class)
+    ->name('platform.inquiry.create');
 
 Route::screen('inquiries/{user}/user', InquiryUserListScreen::class)
     ->name('platform.inquiry.user');

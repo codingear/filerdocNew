@@ -45,6 +45,12 @@ class UserListLayout extends Table
                         'user' => $user->id,
                     ])),
 
+            TD::make('Entries', __('Consultas'))
+                ->sort()
+                ->cantHide()
+                ->filter(Input::make())
+                ->render(fn (User $user) => $user->getInquiryCount()),
+
             TD::make('updated_at', __('Last edit'))
                 ->sort()
                 ->render(fn (User $user) => $user->updated_at->toDateTimeString()),
@@ -55,25 +61,14 @@ class UserListLayout extends Table
                 ->render(fn (User $user) => DropDown::make()
                     ->icon('bs.three-dots-vertical')
                     ->list([
-
-                        Link::make(__('Todas las consultas'))
-                            ->route('platform.inquiry.user', $user->id)
-                            ->icon('bs.inboxes'),
-
-                        Link::make(__('Historial clínico'))
-                            ->route('platform.historical.edit', $user->history->id)
-                            ->icon('bs.list'),
-
-                        Link::make(__('Ficha técnica'))
-                            ->route('platform.datasheet.edit', $user->datasheet->id)
-                            ->icon('bs.person'),
-
                         Link::make(__('Editar usuario'))
                             ->route('platform.systems.users.edit', $user->id)
-                            ->icon('bs.pencil'),
+                            ->icon('bs.pencil')
+                            ->canSee($user->exists),
 
                         Button::make(__('Borrar'))
                             ->icon('bs.trash3')
+                            ->canSee($user->exists)
                             ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
                             ->method('remove', [
                                 'id' => $user->id,
