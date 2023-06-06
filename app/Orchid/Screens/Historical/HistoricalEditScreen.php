@@ -49,7 +49,8 @@ class HistoricalEditScreen extends Screen
         return [
             Link::make('Volver')
                 ->icon('bs.arrow-left')
-                ->route('platform.systems.users'),
+                ->route('platform.systems.users.edit',$this->history->user->id),
+
             Button::make('Actualizar')
                 ->icon('note')
                 ->method('Update')
@@ -65,7 +66,7 @@ class HistoricalEditScreen extends Screen
     public function layout(): iterable
     {
         return [
-        
+
                 Layout::rows([
                     Group::make([
                         TextArea::make('history.capacity_suffers')

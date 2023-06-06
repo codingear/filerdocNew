@@ -28,11 +28,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserEditScreen extends Screen
 {
-    /**
-     * @var User
-     */
     public $user;
-
     /**
      * Fetch data to be displayed on the screen.
      *
@@ -40,8 +36,7 @@ class UserEditScreen extends Screen
      */
     public function query(User $user): iterable
     {
-        $user->load(['roles']);
-
+        $user->load(['roles','datasheet']);
         return [
             'user'       => $user,
             'permission' => $user->getStatusPermission(),
@@ -83,6 +78,19 @@ class UserEditScreen extends Screen
                 Link::make('Volver')
                     ->icon('bs.arrow-left')
                     ->route('platform.systems.users'),
+
+                Link::make('Consultas')
+                    ->icon('bs.inboxes')
+                    ->route('platform.inquiry.user',$this->user->id),
+
+                Link::make('Historial clínico')
+                    ->icon('bs.list')
+                    ->route('platform.historical.edit',$this->user->history->id),
+
+                Link::make('Ficha técnica')
+                    ->icon('bs.person')
+                    ->route('platform.datasheet.edit',$this->user->datasheet->id),
+
                 Button::make(__('Save'))
                     ->icon('bs.check-circle')
                     ->method('save'),
@@ -94,19 +102,19 @@ class UserEditScreen extends Screen
                     ->confirm(__('You can revert to your original state by logging out.'))
                     ->method('loginAs')
                     ->canSee($this->user->exists && \request()->user()->id !== $this->user->id),
-    
+
                 Button::make(__('Remove'))
                     ->icon('bs.trash3')
                     ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
                     ->method('remove')
                     ->canSee($this->user->exists),
-    
+
                 Button::make(__('Save'))
                     ->icon('bs.check-circle')
                     ->method('save'),
             ];
         }
-       
+
     }
 
     /**
@@ -140,7 +148,7 @@ class UserEditScreen extends Screen
                     ),
 
             ];
-            
+
         } else {
 
             return [

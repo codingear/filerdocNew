@@ -67,8 +67,8 @@ class DatasheetEditScreen extends Screen
         return [
             Link::make('Volver')
                 ->icon('bs.arrow-left')
-                ->route('platform.systems.users'),
-                
+                ->route('platform.systems.users.edit',$this->datasheet->user->id),
+
             Button::make('Actualizar')
                 ->icon('note')
                 ->method('Update')
@@ -91,7 +91,7 @@ class DatasheetEditScreen extends Screen
                     'Estado' => 'metrics.state',
                     'Situación económica' => 'metrics.socioeconomic'
                 ]),
-    
+
                 Layout::rows([
                     Group::make([
                         Input::make('datasheet.patient_id')
@@ -103,7 +103,7 @@ class DatasheetEditScreen extends Screen
 
                         Input::make('datasheet.tutor')
                             ->title('Nombre del Tutor:'),
-            
+
                     ]),
                     Group::make([
                         Input::make('datasheet.religion')
@@ -114,7 +114,7 @@ class DatasheetEditScreen extends Screen
 
                         Input::make('datasheet.city')
                             ->title('Ciudad:'),
-                        
+
                     ]),
                     Group::make([
                         Input::make('datasheet.address')
@@ -125,7 +125,7 @@ class DatasheetEditScreen extends Screen
 
                         Input::make('datasheet.gender')
                             ->title('Género:'),
-                        
+
                     ]),
                     Group::make([
                         Input::make('datasheet.blood_type')
@@ -135,12 +135,12 @@ class DatasheetEditScreen extends Screen
                             ->title('Ocupación:'),
 
                         Input::make('datasheet.nationality')
-                            ->title('Nacionalidad:'),               
+                            ->title('Nacionalidad:'),
                     ]),
 
                     Group::make([
                         Input::make('datasheet.place_of_birth')
-                            ->title('Lugar de nacimiento:'),        
+                            ->title('Lugar de nacimiento:'),
 
                         Input::make('datasheet.civil_status')
                             ->title('Estado civil:'),
@@ -152,7 +152,7 @@ class DatasheetEditScreen extends Screen
                     Group::make([
                         Input::make('datasheet.screening')
                             ->title('Tamizaje:'),
-                        
+
                         Input::make('datasheet.scholarship')
                             ->title('Nivel de estudios:'),
 
@@ -163,7 +163,7 @@ class DatasheetEditScreen extends Screen
                             ])->title('Capacidad diferente:'),
                     ]),
 
-                    
+
                 ])->title('Datos de la ficha'),
 
                 Layout::rows([
@@ -189,7 +189,7 @@ class DatasheetEditScreen extends Screen
                     Group::make([
                         TextArea::make('datasheet.comments')
                             ->rows(5)
-                            ->title('Comentarios'),       
+                            ->title('Comentarios'),
                     ]),
                 ])->title('Información extra'),
         ];

@@ -17,7 +17,7 @@ class InquiryUserListScreen extends Screen
      *
      * @return array
      */
-    
+
     public function query(User $user): iterable
     {
         $this->user = $user;
@@ -33,7 +33,7 @@ class InquiryUserListScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Consultas de '.$this->user->FullName;
+        return 'Consultas';
     }
 
     /**
@@ -54,7 +54,8 @@ class InquiryUserListScreen extends Screen
         return [
             Link::make('Volver')
                 ->icon('bs.arrow-left')
-                ->route('platform.systems.users'),
+                ->route('platform.systems.users.edit',$this->user->id),
+
             Link::make('Crear cita')
                 ->icon('pencil')
                 ->route('platform.inquiry.edit')

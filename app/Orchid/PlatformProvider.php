@@ -40,10 +40,6 @@ class PlatformProvider extends OrchidServiceProvider
                 ->permission('platform.systems.users')
                 ->title(__('Pacientes y consultas')),
 
-            /*Menu::make('Consultas')
-                ->icon('bag')
-                ->route('platform.inquiry.list'),*/
-
             Menu::make(__('Roles'))
                 ->icon('bs.lock')
                 ->route('platform.systems.roles')
@@ -54,7 +50,7 @@ class PlatformProvider extends OrchidServiceProvider
                 ->icon('lock')
                 ->title('Administración')
                 ->route('main.logout')
-            
+
         ];
     }
 
@@ -80,7 +76,7 @@ class PlatformProvider extends OrchidServiceProvider
 
             ItemPermission::group(__('Datasheet'))
                 ->addPermission('platform.datasheet.edit', __('Edit'))
-                
+
         ];
     }
 }

@@ -8,6 +8,7 @@ use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
 use App\Orchid\Screens\User\UserListScreen;
 use App\Orchid\Screens\User\UserProfileScreen;
+use App\Orchid\Screens\User\PatientEditScreen;
 use Illuminate\Support\Facades\Route;
 use Tabuna\Breadcrumbs\Trail;
 
@@ -103,5 +104,5 @@ Route::screen('historical/edit/{history}', HistoricalEditScreen::class)
 //LOGOUT
 Route::get('/logout',function(){
     Auth::logout();
-    return redirect('/admin'); 
+    return redirect('/admin');
 })->name('platform.main.logout');
