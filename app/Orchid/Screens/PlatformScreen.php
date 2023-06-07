@@ -34,7 +34,7 @@ class PlatformScreen extends Screen
         $week = Inquiry::where('user_id',Auth::user()->id)->whereBetween('created_at', [$weekStartDate, $weekEndDate])->get();
         $month = Inquiry::where('user_id',Auth::user()->id)->whereBetween('created_at', [$monthStartDate, $monthEndDate])->get();
         $year = Inquiry::where('user_id',Auth::user()->id)->whereBetween('created_at', [$yearStartDate, $yearEndDate])->get();
-        $last_patient = Inquiry::where('user_id',Auth::user()->id)->latest()->with('user')->first();
+        $last_patient = Inquiry::where('doctor_id',Auth::user()->id)->latest()->with('user')->first();
 
         return [
             'user' => Auth::user(),

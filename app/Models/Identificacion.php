@@ -14,4 +14,8 @@ class Identificacion extends Model
     public function citas(){
         return $this->hasMany(Respuesta::class, 'identificacion', 'id');
     }
+
+    public function citasCount(){
+        return $this->citas()->count();
+    }
 }

@@ -259,7 +259,7 @@ class UserEditScreen extends Screen
 
         $user->save();
         Toast::info(__('El paciente ha sido actualizado.'));
-        return redirect()->route('platform.systems.users');
+        return redirect()->route('platform.systems.users.edit',$user->id);
     }
 
     /**

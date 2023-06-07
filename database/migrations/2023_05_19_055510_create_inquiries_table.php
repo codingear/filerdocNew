@@ -50,7 +50,7 @@ return new class extends Migration
 
             //Patient relation
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             //Doctor relation
             $table->unsignedBigInteger('doctor_id')->nullable();

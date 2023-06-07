@@ -25,11 +25,30 @@ class UserEditLayout extends Rows
                 ->title(__('Name'))
                 ->placeholder(__('Name')),
 
+            Input::make('user.last_name')
+                ->type('text')
+                ->max(255)
+                ->required()
+                ->title(__('Apellido paterno')),
+            
+            Input::make('user.mother_last_name')
+                ->type('text')
+                ->max(255)
+                ->required()
+                ->title(__('Apellido materno')),
+
             Input::make('user.email')
                 ->type('email')
                 ->required()
                 ->title(__('Email'))
                 ->placeholder(__('Email')),
+
+            Input::make('user.phone')
+                ->type('tel')
+                ->max(255)
+                ->mask('(999) 999-9999')
+                ->required()
+                ->title(__('Teléfono')),
         ];
     }
 }

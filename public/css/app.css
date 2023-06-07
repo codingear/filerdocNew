@@ -5,4 +5,25 @@
 p.h3.text-black.fw-light.mt-auto {
     font-weight: 500!important;
     color: #00b1ff!important;
+    font-size: 20px!important;
+}
+
+span.count {
+    background-color: #00aaff;
+    padding: 4px 6px;
+    border-radius: 2px;
+    text-align: center;
+    color: white;
+}
+
+.text-footer {
+    display:block;
+    margin:0 auto;
+    font-size: 12px;
+    margin-top:13px;
+    color:white!important;
+}
+
+.text-footer.black {
+    color:black!important;
 }

@@ -104,9 +104,3 @@ Route::screen('datasheet/edit/{datasheet}', DatasheetEditScreen::class)
 //HISTORICAL CLINICAL
 Route::screen('historical/edit/{history}', HistoricalEditScreen::class)
     ->name('platform.historical.edit');
-
-//LOGOUT
-Route::get('/logout',function(){
-    Auth::logout();
-    return redirect('/admin');
-})->name('platform.main.logout');

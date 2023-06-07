@@ -45,11 +45,11 @@ class UserListLayout extends Table
                         'user' => $user->id,
                     ])),
 
-            TD::make('Entries', __('Consultas'))
+            TD::make('inquiries', __('Consultas'))
                 ->sort()
                 ->cantHide()
                 ->filter(Input::make())
-                ->render(fn (User $user) => $user->getInquiryCount()),
+                ->render(fn (User $user) => '<span class="count">'.$user->inquiries->count().'</span>'),
 
             TD::make('updated_at', __('Last edit'))
                 ->sort()

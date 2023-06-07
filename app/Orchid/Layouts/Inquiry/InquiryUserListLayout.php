@@ -44,7 +44,7 @@ class InquiryUserListLayout extends Table
 
             TD::make('weight', __('Peso'))
                 ->sort()
-                ->render(fn (Inquiry $inquiry) => ($inquiry->weight)?$inquiry->weight.' Kg':'-'),
+                ->render(fn (Inquiry $inquiry) => ($inquiry->weight)?$inquiry->weight:'-'),
 
             TD::make('created_at', __('Fecha'))
                 ->sort()
