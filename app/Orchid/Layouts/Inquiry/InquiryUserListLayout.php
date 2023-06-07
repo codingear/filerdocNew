@@ -30,17 +30,17 @@ class InquiryUserListLayout extends Table
     {
         return [
 
-            TD::make('name', __('Nombre'))
+            TD::make('reason', __('Nombre / Razón'))
                 ->sort()
-                ->render(fn (Inquiry $inquiry) => $inquiry->user->FullName),
+                ->render(fn (Inquiry $inquiry) => ($inquiry->user->FullName)),
 
             TD::make('size', __('Tamaño'))
                 ->sort()
                 ->render(fn (Inquiry $inquiry) => ($inquiry->size)? $inquiry->size.' cm':'-'),
 
-            TD::make('temperature', __('Temperatura'))
+            TD::make('reason', __('Razón'))
                 ->sort()
-                ->render(fn (Inquiry $inquiry) => ($inquiry->temperature)? $inquiry->temperature.' °C':'-'),
+                ->render(fn (Inquiry $inquiry) => ($inquiry->reason)? $inquiry->reason:'-'),
 
             TD::make('weight', __('Peso'))
                 ->sort()
@@ -48,7 +48,7 @@ class InquiryUserListLayout extends Table
 
             TD::make('created_at', __('Fecha'))
                 ->sort()
-                ->render(fn (Inquiry $inquiry) => $inquiry->created_at->format('d-m-Y')),
+                ->render(fn (Inquiry $inquiry) => $inquiry->created_at),
 
             TD::make(__('Acciones'))
                 ->align(TD::ALIGN_CENTER)

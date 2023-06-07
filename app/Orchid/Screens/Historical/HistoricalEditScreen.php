@@ -36,7 +36,12 @@ class HistoricalEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Historial clínico de '.$this->history->user->FullName;
+        return $this->history->user->FullName;
+    }
+
+    public function description(): ?string
+    {
+        return 'Edita la información del historíal del paciente';
     }
 
     /**

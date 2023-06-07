@@ -96,11 +96,20 @@ Route::screen('inquiry/create/{user_id?}', InquiryCreateScreen::class)
     ->name('platform.inquiry.create');
 
 Route::screen('inquiries/{user}/user', InquiryUserListScreen::class)
-    ->name('platform.inquiry.user');
+    ->name('platform.inquiry.user')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.systems.users')
+        ->push(__('Consultas'), route('platform.systems.users')));
 
 Route::screen('datasheet/edit/{datasheet}', DatasheetEditScreen::class)
-    ->name('platform.datasheet.edit');
+    ->name('platform.datasheet.edit')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.systems.users')
+        ->push(__('Ficha técnica'), route('platform.systems.users')));
 
 //HISTORICAL CLINICAL
 Route::screen('historical/edit/{history}', HistoricalEditScreen::class)
-    ->name('platform.historical.edit');
+    ->name('platform.historical.edit')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.systems.users')
+        ->push(__('Historial clínico'), route('platform.systems.users')));

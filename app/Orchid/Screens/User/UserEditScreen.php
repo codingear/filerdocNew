@@ -57,7 +57,7 @@ class UserEditScreen extends Screen
      */
     public function description(): ?string
     {
-        return 'Perfil de usuario y privilegios, incluido su rol asociado.';
+        return 'Perfil de usuario y privilegios, incluido su rol asociado';
     }
 
     public function permission(): ?iterable

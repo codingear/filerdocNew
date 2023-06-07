@@ -41,7 +41,7 @@ class InquiryUserListScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Consultas';
+        return $this->user->FullName;
     }
 
     /**

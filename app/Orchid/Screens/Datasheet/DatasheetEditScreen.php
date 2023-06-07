@@ -54,7 +54,7 @@ class DatasheetEditScreen extends Screen
 
     public function description(): ?string
     {
-        return 'Se muestra toda la información sobre la ficha técnica.';
+        return 'Se muestra toda la información sobre la ficha técnica';
     }
 
     /**
