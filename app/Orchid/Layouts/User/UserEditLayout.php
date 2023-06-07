@@ -47,7 +47,6 @@ class UserEditLayout extends Rows
                 ->type('tel')
                 ->max(255)
                 ->mask('(999) 999-9999')
-                ->required()
                 ->title(__('Teléfono')),
         ];
     }

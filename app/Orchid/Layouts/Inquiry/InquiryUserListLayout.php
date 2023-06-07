@@ -30,7 +30,7 @@ class InquiryUserListLayout extends Table
     {
         return [
 
-            TD::make('reason', __('Nombre / Razón'))
+            TD::make('reason', __('Nombre'))
                 ->sort()
                 ->render(fn (Inquiry $inquiry) => ($inquiry->user->FullName)),
 
@@ -40,7 +40,7 @@ class InquiryUserListLayout extends Table
 
             TD::make('reason', __('Razón'))
                 ->sort()
-                ->render(fn (Inquiry $inquiry) => ($inquiry->reason)? $inquiry->reason:'-'),
+                ->render(fn (Inquiry $inquiry) => ($inquiry->reason)? $inquiry->ReasonCut:'-'),
 
             TD::make('weight', __('Peso'))
                 ->sort()
