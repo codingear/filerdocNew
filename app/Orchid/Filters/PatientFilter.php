@@ -34,6 +34,8 @@ class PatientFilter extends Filter
     public function run(Builder $builder): Builder
     {
         $builder->where('name','like','%'.$this->request->get('name').'%');
+        $builder->orWhere('last_name','like','%'.$this->request->get('name').'%');
+        $builder->orWhere('mother_last_name','like','%'.$this->request->get('name').'%');
         $builder->orWhere('email','like','%'.$this->request->get('name').'%');
         return $builder;
     }

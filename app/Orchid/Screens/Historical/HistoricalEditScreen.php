@@ -76,20 +76,20 @@ class HistoricalEditScreen extends Screen
                     Group::make([
                         TextArea::make('history.capacity_suffers')
                             ->rows(5)
-                            ->title('Padecimiento actual'),
+                            ->title('¿Qué enfermedades padece en este momento?'),
 
                         TextArea::make('history.allergy_medicine')
                             ->rows(5)
-                            ->title('Alergia a medicamentos'),
+                            ->title('¿A qué medicamentos es alergico?'),
                     ]),
                     Group::make([
                         TextArea::make('history.family_history')
                             ->rows(5)
-                            ->title('Historia familiar'),
+                            ->title('Antecedentes heredo familiares'),
 
                         TextArea::make('history.non_pathological_history')
                             ->rows(5)
-                            ->title('Antecedentes no-patólogicos'),
+                            ->title('Antecedentes personales no patológicos'),
 
                     ]),
                     Group::make([
@@ -99,7 +99,7 @@ class HistoricalEditScreen extends Screen
 
                         TextArea::make('history.gynecological_history')
                             ->rows(5)
-                            ->title('Antecedentes ginecológicos'),
+                            ->title('Antecedentes Gineco – Obstétricos'),
                     ]),
                     Group::make([
                         TextArea::make('history.perinatal_history')
@@ -108,7 +108,13 @@ class HistoricalEditScreen extends Screen
 
                         TextArea::make('history.administered_vaccine')
                             ->rows(5)
-                            ->title('Vacuna administrada'),
+                            ->title('Historial de vacunas administradas'),
+                    ]),
+
+                    Group::make([
+                        TextArea::make('history.screening')
+                            ->rows(5)
+                            ->title('Tamizajes practicados y resultados'),
                     ])
                 ])->title('Historial clínico'),
         ];
@@ -120,20 +126,12 @@ class HistoricalEditScreen extends Screen
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function Update(Request $request)
+    public function Update(History $history,Request $request)
     {
-        $histo = History::where('user_id',$this->history->user->id)->first();
-        $histo->capacity_suffers = $request->history['capacity_suffers'];
-        $histo->allergy_medicine = $request->history['allergy_medicine'];
-        $histo->family_history = $request->history['family_history'];
-        $histo->non_pathological_history = $request->history['non_pathological_history'];
-        $histo->pathological_history = $request->history['pathological_history'];
-        $histo->gynecological_history = $request->history['gynecological_history'];
-        $histo->perinatal_history = $request->history['perinatal_history'];
-        $histo->administered_vaccine = $request->history['administered_vaccine'];
-        $histo->save();
-
+        $history
+            ->fill($request->collect('history')->toArray())
+            ->save();
         Alert::info('Se ha actualizado correctamente el historial clínico.');
-        return redirect()->route('platform.historical.edit',$this->history->user->id);
+        return redirect()->route('platform.historical.edit',$this->history->id);
     }
 }

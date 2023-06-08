@@ -89,71 +89,34 @@ class InquiryEditScreen extends Screen
             
             Layout::rows([
                 Group::make([
-                    Relation::make('inquiry.user_id')
-                        ->fromModel(User::class, 'name','id')
-                        ->displayAppend('Fullname')
-                        ->title('Selecciona el paciente:'),
-
                     Input::make('inquiry.weight')
                         ->title('Peso:'),
 
                     Input::make('inquiry.size')
-                        ->title('Tamaño:'),
-                ]),
-                Group::make([
+                        ->title('Talla:'),
+
                     Input::make('inquiry.temperature')
                         ->title('Temperatura:'),
 
+                    Input::make('inquiry.pc')
+                        ->title('Pc:'),
+                ]),
+                Group::make([
                     Input::make('inquiry.sat')
                         ->title('Sat%:'),
 
                     Input::make('inquiry.fc')
-                        ->title('Fc:'),
-                ]),
-                Group::make([
-
-                    Input::make('inquiry.pc')
-                    ->title('Pc:'),
+                        ->title('Fc.:'),
 
                     Input::make('inquiry.fr')
-                        ->title('Fr:'),
-
-                    Input::make('inquiry.dxt')
-                        ->title('DXT:'),
-                ]),
-                Group::make([  
-                    Input::make('inquiry.glycemia')
-                        ->title('Glicemia:'),
-
-                    Input::make('inquiry.hba1c')
-                        ->title('HbA1c:'),
+                        ->title('Fr.:'),
 
                     Input::make('inquiry.ta')
-                        ->title('T.A:'),
+                        ->title('TA:'),
                 ]),
-
                 Group::make([
-                    Input::make('inquiry.triglycerides')
-                        ->title('Triglicéridos:'),
-
-                    Input::make('inquiry.cholesterol')
-                        ->title('Colesterol:'),
-
-                    Input::make('inquiry.uric_acid')
-                        ->title('Ácido úrico:'),
-                ]),
-
-            ])->title('Información básica'),
-
-            Layout::rows([
-               
-                Group::make([
-
-                    Input::make('inquiry.height_percentile')
-                        ->title('Talla percentila:'),
-
-                    Input::make('inquiry.pc_percentile')
-                        ->title('Pc percentila:'),
+                    Input::make('inquiry.dxt')
+                        ->title('DXT:'),
                 ]),
 
                 Group::make([
@@ -168,67 +131,82 @@ class InquiryEditScreen extends Screen
                         ->rows(3),
                 ]),
 
-            ]),
+                Group::make([
+                    TextArea::make('inquiry.suffering')
+                        ->title('Padecimiento actual:')
+                        ->rows(3),
 
-            Layout::rows([
+                    TextArea::make('inquiry.exploration')
+                        ->title('Exploración física:')
+                        ->rows(3),
+                ]),
 
                 Group::make([
-                    TextArea::make('inquiry.treatment')
-                        ->title('Tratamiento:')
-                        ->rows(5),
+                    TextArea::make('inquiry.cabinet_studies')
+                        ->title('Estudios de gabinete:')
+                        ->rows(3),
+
+                    TextArea::make('inquiry.other_studies')
+                        ->title('Otros estudios:')
+                        ->rows(3),
                 ]),
 
                 Group::make([
                     TextArea::make('inquiry.diagnosis')
                         ->title('Diagnóstico:')
-                        ->rows(3),
+                        ->rows(5),
+                ]),
 
-                    TextArea::make('inquiry.suffering')
-                        ->title('Padecimiento actual:')
-                        ->rows(3),
+            ])->title('Nota médica'),
+
+            Layout::rows([
+               
+                Group::make([
+                    Input::make('inquiry.glycemia')
+                        ->title('Glicemia:'),
+
+                    Input::make('inquiry.hba1c')
+                        ->title('HbA1c:'),
+
+                    Input::make('inquiry.triglycerides')
+                        ->title('Triglicéridos:'),
+
+                    Input::make('inquiry.cholesterol')
+                        ->title('Colesterol:'),
                 ]),
 
                 Group::make([
-                    TextArea::make('inquiry.exploration')
-                        ->title('Exploración física:')
-                        ->rows(5),
-
-                    TextArea::make('inquiry.cabinet_studies')
-                        ->title('Estudios de gabinete:')
-                        ->rows(5),
+                    Input::make('inquiry.uric_acid')
+                        ->title('Ácido úrico:'),
                 ]),
 
+            ])->title('Cronometría de seguimiento clínico'),
+
+            Layout::rows([
                 Group::make([
-            
-                    TextArea::make('inquiry.other_studies')
-                        ->title('Otros estudios:')
-                        ->rows(5),
+                    Input::make('inquiry.height_percentile')
+                        ->title('Talla percentila:'),
 
-                    TextArea::make('inquiry.last_24_hours')
-                        ->title('Antecedentes últimas 24 horas:')
-                        ->rows(5),
+                    Input::make('inquiry.pc_percentile')
+                        ->title('Pc percentila:'),
                 ]),
+            ])->title('Percentiles de crecimiento infantil'),
 
+            Layout::rows([
                 Group::make([
                     TextArea::make('inquiry.patient_notes')
-                        ->title('Anotaciones especiales del paciente:')
-                        ->rows(5),
-
-                    TextArea::make('inquiry.clinical_signs')
-                        ->title('Signos clínicos:')
-                        ->rows(5),
+                    ->title('Anotaciones especiales del paciente:')
+                    ->rows(7),
                 ]),
+            ])->title('Anotaciones especiales del paciente'),
 
+            Layout::rows([
                 Group::make([
-                    TextArea::make('inquiry.inherited_family_history')
-                        ->title('Antecedentes heredo familiares:')
-                        ->rows(5),
-
-                    TextArea::make('inquiry.pathological_history')
-                        ->title('Antecedentes patológicos:')
-                        ->rows(5),
+                    TextArea::make('inquiry.treatment')
+                    ->title('Tratamiento:')
+                    ->rows(7),
                 ]),
-            ])
+            ])->title('Plan y tratamiento del paciente'),
         ];
     }
 

@@ -18,6 +18,7 @@ class History extends Model
         'gynecological_history',
         'perinatal_history',
         'administered_vaccine',
+        'screening',
         'archived',
         'user_id',
     ];

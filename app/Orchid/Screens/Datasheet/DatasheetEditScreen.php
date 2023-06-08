@@ -205,31 +205,11 @@ class DatasheetEditScreen extends Screen
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function Update(Request $request)
+    public function Update(Datasheet $datasheet,Request $request)
     {
-        //dd($request->all());
-        $data = Datasheet::where('id',$this->datasheet->id)->first();
-        $data->patient_id = $request->datasheet['patient_id'];
-        $data->religion = $request->datasheet['religion'];
-        $data->tutor = $request->datasheet['tutor'];
-        $data->socioeconomic = $request->datasheet['socioeconomic'];
-        $data->city = $request->datasheet['city'];
-        $data->address = $request->datasheet['address'];
-        $data->cp = $request->datasheet['cp'];
-        $data->gender = $request->datasheet['gender'];
-        $data->blood_type = $request->datasheet['blood_type'];
-        $data->nationality = $request->datasheet['nationality'];
-        $data->place_of_birth = $request->datasheet['place_of_birth'];
-        $data->civil_status = $request->datasheet['civil_status'];
-        $data->scholarship = $request->datasheet['scholarship'];
-        $data->birthdate = $request->datasheet['birthdate'];
-        $data->comments = $request->datasheet['comments'];
-        $data->different_capacity = $request->datasheet['different_capacity'];
-        $data->state_id = $request->datasheet['state_id'];
-        $data->municipality_id = $request->datasheet['municipality_id'];
-        $data->location_id = $request->datasheet['location_id'];
-        $data->save();
-
+        $datasheet
+            ->fill($request->collect('datasheet')->toArray())
+            ->save();
         Alert::info('Se ha actualizado correctamente la ficha técnica.');
         return redirect()->back();
     }

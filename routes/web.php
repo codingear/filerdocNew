@@ -623,6 +623,17 @@ Route::get('/import/doctor/{id}', function($id){
 
 });
 
+Route::get('import/screening',function(){
+    $datasheets = Datasheet::get();
+    foreach($datasheets as $data){
+        if(!is_null($data->screening)){
+            $history = History::where('user_id',$data->user_id)->first();
+            $history->screening = $data->screening;
+            $history->save();
+        }
+    }
+});
+
 Route::get('/import/user/{id}', function(string $id) {
 
     //php artisan orchid:admin Sudo webmaster@filerdoc.com Meg@blaster007@7251
