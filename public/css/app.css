@@ -27,3 +27,8 @@ span.count {
 .text-footer.black {
     color:black!important;
 }
+
+.bootstrap-tagsinput, .chosen-choices, .chosen-single, .form-control, .form-range {
+    max-width: 100%!important;
+    width:100%!important;
+}

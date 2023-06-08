@@ -132,9 +132,6 @@ class InquiryEditScreen extends Screen
                         ->title('T.A:'),
                 ]),
 
-            ])->title('Información básica'),
-
-            Layout::rows([
                 Group::make([
                     Input::make('inquiry.triglycerides')
                         ->title('Triglicéridos:'),
@@ -144,9 +141,14 @@ class InquiryEditScreen extends Screen
 
                     Input::make('inquiry.uric_acid')
                         ->title('Ácido úrico:'),
-
                 ]),
+
+            ])->title('Información básica'),
+
+            Layout::rows([
+               
                 Group::make([
+
                     Input::make('inquiry.height_percentile')
                         ->title('Talla percentila:'),
 
@@ -169,6 +171,12 @@ class InquiryEditScreen extends Screen
             ]),
 
             Layout::rows([
+
+                Group::make([
+                    TextArea::make('inquiry.treatment')
+                        ->title('Tratamiento:')
+                        ->rows(5),
+                ]),
 
                 Group::make([
                     TextArea::make('inquiry.diagnosis')
