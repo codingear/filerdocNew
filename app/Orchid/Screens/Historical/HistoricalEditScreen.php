@@ -56,9 +56,10 @@ class HistoricalEditScreen extends Screen
                 ->icon('bs.arrow-left')
                 ->route('platform.systems.users.edit',$this->history->user->id),
 
-            Button::make('Actualizar')
+            Button::make('Save')
                 ->icon('note')
                 ->method('Update')
+                ->class('btn btn-success')
                 ->canSee($this->history->exists),
         ];
     }
@@ -131,7 +132,7 @@ class HistoricalEditScreen extends Screen
         $history
             ->fill($request->collect('history')->toArray())
             ->save();
-        Alert::info('Se ha actualizado correctamente el historial clínico.');
+        Alert::success('Se ha actualizado correctamente el historial clínico.');
         return redirect()->route('platform.historical.edit',$this->history->id);
     }
 }

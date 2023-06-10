@@ -28,6 +28,25 @@ span.count {
     color:black!important;
 }
 
+a.btn-primary svg,
+a.btn-primary span,
+a.btn-primary:hover span
+a.btn-primary:hover svg,
+a.btn-warning svg,
+a.btn-warning span,
+a.btn-warning:hover svg
+a.btn-warning:hover span,
+a.btn-success svg,
+a.btn-success span,
+a.btn-success:hover svg
+a.btn-success:hover span,
+a.btn-info svg,
+a.btn-info span,
+a.btn-info:hover svg
+a.btn-info:hover span {
+    color: white!important;
+}
+
 .bootstrap-tagsinput, .chosen-choices, .chosen-single, .form-control, .form-range {
     max-width: 100%!important;
     width:100%!important;

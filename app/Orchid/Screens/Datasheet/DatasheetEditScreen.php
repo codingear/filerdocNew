@@ -69,9 +69,10 @@ class DatasheetEditScreen extends Screen
                 ->icon('bs.arrow-left')
                 ->route('platform.systems.users.edit',$this->datasheet->user->id),
 
-            Button::make('Actualizar')
+            Button::make('Guardar')
                 ->icon('note')
                 ->method('Update')
+                ->class('btn btn-success')
                 ->canSee($this->datasheet->exists),
         ];
     }
@@ -97,8 +98,9 @@ class DatasheetEditScreen extends Screen
                         Input::make('datasheet.patient_id')
                             ->title('ID del paciente:'),
 
-                        Input::make('datasheet.birthdate')
+                        DateTimer::make('datasheet.birthdate')
                             ->title('Fecha de nacimiento:')
+                            ->format('d-m-Y')
                             ->required(),
 
                         Input::make('datasheet.tutor')
@@ -210,7 +212,7 @@ class DatasheetEditScreen extends Screen
         $datasheet
             ->fill($request->collect('datasheet')->toArray())
             ->save();
-        Alert::info('Se ha actualizado correctamente la ficha técnica.');
+        Alert::success('Se ha actualizado correctamente la ficha técnica.');
         return redirect()->back();
     }
 }

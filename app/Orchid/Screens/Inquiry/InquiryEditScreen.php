@@ -61,19 +61,21 @@ class InquiryEditScreen extends Screen
                 ->route('platform.inquiry.user',$this->inquiry->user->id)
                 ->canSee($this->inquiry->exists),
 
-            Button::make('Nueva consulta')
+            /*Button::make('Nueva consulta')
                 ->icon('pencil')
                 ->method('Create')
-                ->canSee($this->inquiry->exists),
+                ->canSee($this->inquiry->exists),*/
 
-            Button::make('Actualizar')
+            Button::make('Guardar')
                 ->icon('note')
                 ->method('Update')
+                ->class('btn btn-success')
                 ->canSee($this->inquiry->exists),
 
             Button::make('Eliminar')
                 ->icon('trash')
                 ->method('Remove')
+                ->class('btn btn-danger')
                 ->canSee($this->inquiry->exists),
         ];
     }
@@ -89,6 +91,13 @@ class InquiryEditScreen extends Screen
             
             Layout::rows([
                 Group::make([
+                    Relation::make('inquiry.user_id')
+                    ->fromModel(User::class, 'name','id')
+                    ->displayAppend('Fullname')
+                    ->canSee(false)
+                    ->value(@$this->inquiry->user->id)
+                    ->title('Selecciona el paciente:'),
+
                     Input::make('inquiry.weight')
                         ->title('Peso:'),
 
@@ -184,6 +193,9 @@ class InquiryEditScreen extends Screen
 
             Layout::rows([
                 Group::make([
+                    Input::make('inquiry.weight_percentile')
+                        ->title('Peso percentila:'),
+
                     Input::make('inquiry.height_percentile')
                         ->title('Talla percentila:'),
 
@@ -207,6 +219,7 @@ class InquiryEditScreen extends Screen
                     ->rows(7),
                 ]),
             ])->title('Plan y tratamiento del paciente'),
+
         ];
     }
 

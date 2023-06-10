@@ -82,18 +82,23 @@ class UserEditScreen extends Screen
 
                 Link::make('Consultas')
                     ->icon('bs.inboxes')
+                    ->class('btn btn-info')
                     ->route('platform.inquiry.user',$this->user->id),
 
                 Link::make('Historial clínico')
                     ->icon('bs.list')
+                    ->class('btn btn-primary')
                     ->route('platform.historical.edit',$this->user->history->id),
 
                 Link::make('Ficha técnica')
                     ->icon('bs.person')
+                    ->class('btn btn-warning')
                     ->route('platform.datasheet.edit',$this->user->datasheet->id),
 
-                Button::make(__('Save'))
+                Button::make(__('Guardar todo'))
                     ->icon('bs.check-circle')
+                    ->class('btn btn-success')
+                    ->canSee(false)
                     ->method('save'),
             ];
         } elseif(Auth::user()->inRole('doctor') && !$this->user->exists) {
@@ -104,6 +109,8 @@ class UserEditScreen extends Screen
 
                 Button::make(__('Save'))
                     ->icon('bs.check-circle')
+                    ->class('btn btn-success')
+                    ->canSee(false)
                     ->method('save'),
             ];
         } else {
@@ -116,12 +123,15 @@ class UserEditScreen extends Screen
 
                 Button::make(__('Remove'))
                     ->icon('bs.trash3')
+                    ->class('btn btn-danger')
                     ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
                     ->method('remove')
                     ->canSee($this->user->exists),
 
                 Button::make(__('Save'))
                     ->icon('bs.check-circle')
+                    ->class('btn btn-success')
+                    ->canSee(false)
                     ->method('save'),
             ];
         }
@@ -144,6 +154,7 @@ class UserEditScreen extends Screen
                             ->type(Color::BASIC)
                             ->icon('bs.check-circle')
                             ->canSee($this->user->exists)
+                            ->class('btn btn-success')
                             ->method('save')
                     ),
 
@@ -155,6 +166,7 @@ class UserEditScreen extends Screen
                             ->type(Color::BASIC)
                             ->icon('bs.check-circle')
                             ->canSee($this->user->exists)
+                            ->class('btn btn-success')
                             ->method('save')
                     ),
 
@@ -171,6 +183,7 @@ class UserEditScreen extends Screen
                             ->type(Color::BASIC)
                             ->icon('bs.check-circle')
                             ->canSee($this->user->exists)
+                            ->class('btn btn-success')
                             ->method('save')
                     ),
 
@@ -182,6 +195,7 @@ class UserEditScreen extends Screen
                             ->type(Color::BASIC)
                             ->icon('bs.check-circle')
                             ->canSee($this->user->exists)
+                            ->class('btn btn-success')
                             ->method('save')
                     ),
 
@@ -204,6 +218,7 @@ class UserEditScreen extends Screen
                             ->type(Color::BASIC)
                             ->icon('bs.check-circle')
                             ->canSee($this->user->exists)
+                            ->class('btn btn-success')
                             ->method('save')
                     ),
             ];

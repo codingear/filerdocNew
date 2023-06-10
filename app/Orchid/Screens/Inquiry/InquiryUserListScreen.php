@@ -64,8 +64,9 @@ class InquiryUserListScreen extends Screen
                 ->icon('bs.arrow-left')
                 ->route('platform.systems.users.edit',$this->user->id),
 
-            Link::make('Nueva consulta')
+            Link::make('Añadir consulta')
                 ->icon('pencil')
+                ->class('btn btn-success')
                 ->route('platform.inquiry.create',$this->user->id)
         ];
     }

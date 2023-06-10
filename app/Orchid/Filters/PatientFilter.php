@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Orchid\Filters\Filter;
 use Orchid\Screen\Field;
 use Orchid\Screen\Fields\Input;
-
+use Orchid\Screen\Fields\Group;
 class PatientFilter extends Filter
 {    
     public function name(): string
@@ -21,7 +21,7 @@ class PatientFilter extends Filter
      */
     public function parameters(): ?array
     {
-        return ['name','email','PatientId'];
+        return ['name','last_name','mother_last_name'];
     }
 
     /**
@@ -33,10 +33,10 @@ class PatientFilter extends Filter
      */
     public function run(Builder $builder): Builder
     {
-        $builder->where('name','like','%'.$this->request->get('name').'%');
-        $builder->orWhere('last_name','like','%'.$this->request->get('name').'%');
-        $builder->orWhere('mother_last_name','like','%'.$this->request->get('name').'%');
-        $builder->orWhere('email','like','%'.$this->request->get('name').'%');
+        $builder->where('name', 'LIKE', '%' . $this->request->get('name') . '%')
+            ->where('last_name', 'LIKE','%'.$this->request->get('last_name').'%')
+            ->where('mother_last_name','LIKE','%'.$this->request->get('mother_last_name').'%')
+            ->get();
         return $builder;
     }
 
@@ -51,8 +51,17 @@ class PatientFilter extends Filter
             Input::make('name')
                 ->type('text')
                 ->value($this->request->get('name'))
-                ->placeholder('Realizar búsqueda...')
-                ->title('Search')
+                ->title('Nombre'),
+
+            Input::make('last_name')
+                ->type('text')
+                ->value($this->request->get('last_name'))
+                ->title('Apellido paterno'),
+
+            Input::make('mother_last_name')
+                ->type('text')
+                ->value($this->request->get('mother_last_name'))
+                ->title('Apellido materno'),
         ];
     }
 }
