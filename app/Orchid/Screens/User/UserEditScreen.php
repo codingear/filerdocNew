@@ -110,7 +110,6 @@ class UserEditScreen extends Screen
                 Button::make(__('Save'))
                     ->icon('bs.check-circle')
                     ->class('btn btn-success')
-                    ->canSee(false)
                     ->method('save'),
             ];
         } else {
